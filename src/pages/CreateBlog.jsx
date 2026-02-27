@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createBlog, reset } from '../store/blogSlice';
 import { categoryAPI } from '../services/api';
 import toast from 'react-hot-toast';
-import { 
+import {
   DocumentTextIcon,
   TagIcon,
   ArrowDownTrayIcon,
@@ -13,7 +13,19 @@ import {
 const CreateBlog = () => {
   const dispatch = useDispatch();
   const { isLoading, isError, message, isSuccess } = useSelector((state) => state.blogs);
-  
+
+  // Static categories as fallback
+  const staticCategories = [
+    { _id: 'technology', name: 'Technology' },
+    { _id: 'programming', name: 'Programming' },
+    { _id: 'web-development', name: 'Web Development' },
+    { _id: 'data-science', name: 'Data Science' },
+    { _id: 'design', name: 'Design' },
+    { _id: 'business', name: 'Business' },
+    { _id: 'lifestyle', name: 'Lifestyle' },
+    { _id: 'travel', name: 'Travel' }
+  ];
+
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -54,6 +66,12 @@ const CreateBlog = () => {
     }
   }, [isSuccess, dispatch]);
 
+  // Debug: Log categories state
+  // useEffect(() => {
+  // console.log('Categories state:', categories);
+  // console.log('Static categories:', staticCategories);
+  // }, [categories]);
+
   useEffect(() => {
     if (isError && message) {
       toast.error(message, { id: 'createBlog' });
@@ -65,7 +83,9 @@ const CreateBlog = () => {
       const response = await categoryAPI.getCategories();
       setCategories(response.data.data.categories);
     } catch (error) {
-      console.error('Failed to fetch categories:', error);
+      console.error('Failed to fetch categories from API, using static categories:', error);
+      // Use static categories as fallback
+      setCategories(staticCategories);
     }
   };
 
@@ -96,7 +116,7 @@ const CreateBlog = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!formData.title || !formData.content || !formData.category) {
       toast.error('Please fill in all required fields');
       return;
@@ -108,11 +128,11 @@ const CreateBlog = () => {
     };
 
     console.log('Submitting blog data:', blogData);
-    
+
     // Show loading toast
     const action = blogData.status === 'published' ? 'Publishing' : 'Saving';
     toast.loading(`${action} blog...`, { id: 'createBlog' });
-    
+
     dispatch(createBlog(blogData));
   };
 
@@ -197,7 +217,7 @@ const CreateBlog = () => {
                 >
                   <option value="">Select a category</option>
                   {categories.map((category) => (
-                    <option key={category._id} value={category._id}>
+                    <option key={category._id || category.id} value={category._id || category.id}>
                       {category.name}
                     </option>
                   ))}
