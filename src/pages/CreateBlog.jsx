@@ -284,12 +284,12 @@ const CreateBlog = () => {
           </p>
         </div>
 
-        <div className="flex justify-end space-x-3">
+        <div className="flex justify-center space-x-4 pt-6">
           <button
             type="submit"
             value="draft"
             disabled={isLoading || !formData.title || !formData.content || !formData.category}
-            className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
           >
             <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
             Save Draft
@@ -298,7 +298,7 @@ const CreateBlog = () => {
             type="submit"
             value="publish"
             disabled={isLoading || !formData.title || !formData.content || !formData.category}
-            className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
           >
             <DocumentTextIcon className="h-5 w-5 mr-2" />
             Publish
