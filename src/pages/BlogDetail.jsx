@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { getBlogById } from '../store/blogSlice';
@@ -28,6 +28,27 @@ const BlogDetail = () => {
   const [likeCount, setLikeCount] = useState(0);
   const [isSubmittingComment, setIsSubmittingComment] = useState(false);
 
+  // Function declarations (hoisted)
+  async function fetchComments() {
+    try {
+      const response = await commentAPI.getCommentsByBlog(id);
+      setComments(response.data.data.comments);
+    } catch (error) {
+      console.error('Failed to fetch comments:', error);
+    }
+  }
+
+  async function fetchLikeStatus() {
+    if (user) {
+      try {
+        const response = await likeAPI.getUserLikeStatus(id);
+        setLikeStatus(response.data.data);
+      } catch (error) {
+        console.error('Failed to fetch like status:', error);
+      }
+    }
+  }
+
   useEffect(() => {
     dispatch(getBlogById(id));
     fetchComments();
@@ -39,26 +60,6 @@ const BlogDetail = () => {
       setLikeCount(currentBlog.likes?.length || 0);
     }
   }, [currentBlog]);
-
-  const fetchComments = useCallback(async () => {
-    try {
-      const response = await commentAPI.getCommentsByBlog(id);
-      setComments(response.data.data.comments);
-    } catch (error) {
-      console.error('Failed to fetch comments:', error);
-    }
-  }, [id]);
-
-  const fetchLikeStatus = useCallback(async () => {
-    if (user) {
-      try {
-        const response = await likeAPI.getUserLikeStatus(id);
-        setLikeStatus(response.data.data);
-      } catch (error) {
-        console.error('Failed to fetch like status:', error);
-      }
-    }
-  }, [user, id]);
 
   const handleLike = async () => {
     if (!user) {
