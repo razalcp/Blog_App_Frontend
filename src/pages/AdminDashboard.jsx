@@ -7,9 +7,7 @@ import {
   DocumentTextIcon,
   FolderIcon,
   ChartBarIcon,
-  PencilSquareIcon,
   TrashIcon,
-  EyeIcon,
   UserCircleIcon
 } from '@heroicons/react/24/outline';
 

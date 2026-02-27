@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { createBlog, reset } from '../store/blogSlice';
 import { categoryAPI } from '../services/api';
 import toast from 'react-hot-toast';
@@ -13,7 +12,6 @@ import {
 
 const CreateBlog = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { isLoading, isError, message, isSuccess } = useSelector((state) => state.blogs);
   
   const [formData, setFormData] = useState({

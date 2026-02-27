@@ -5,11 +5,7 @@ import { logout } from '../store/authSlice';
 import { 
   HomeIcon,
   DocumentTextIcon,
-  UserGroupIcon,
-  Cog6ToothIcon,
   ArrowRightOnRectangleIcon,
-  ArrowLeftOnRectangleIcon,
-  PlusCircleIcon,
   PencilSquareIcon,
   UserCircleIcon,
   ShieldCheckIcon

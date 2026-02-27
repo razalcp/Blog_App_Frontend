@@ -69,10 +69,6 @@ const EditBlog = () => {
     }
   };
 
-  const fetchLikeStatus = async () => {
-    // This function is not needed for EditBlog, removing the call
-  };
-
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
