@@ -289,7 +289,7 @@ const CreateBlog = () => {
             type="submit"
             value="draft"
             disabled={isLoading || !formData.title || !formData.content || !formData.category}
-            className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+            className="px-6 py-3 bg-secondary-600 text-white font-medium rounded-lg hover:bg-secondary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center transition-colors duration-200"
           >
             <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
             Save Draft
@@ -298,7 +298,7 @@ const CreateBlog = () => {
             type="submit"
             value="publish"
             disabled={isLoading || !formData.title || !formData.content || !formData.category}
-            className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+            className="px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center transition-colors duration-200"
           >
             <DocumentTextIcon className="h-5 w-5 mr-2" />
             Publish
