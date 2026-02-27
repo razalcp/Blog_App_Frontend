@@ -47,8 +47,14 @@ const CreateBlog = () => {
     };
   }, [dispatch]);
 
+  // Debug: Log Redux state
+  useEffect(() => {
+    console.log('Redux blog state:', { isLoading, isError, message, isSuccess });
+  }, [isLoading, isError, message, isSuccess]);
+
   useEffect(() => {
     if (isSuccess) {
+      console.log('Blog creation successful, clearing form...');
       toast.success('Blog created successfully!', { id: 'createBlog' });
       // Clear the form
       setFormData({
@@ -134,6 +140,21 @@ const CreateBlog = () => {
     toast.loading(`${action} blog...`, { id: 'createBlog' });
 
     dispatch(createBlog(blogData));
+
+    // Manual form reset as backup
+    setTimeout(() => {
+      setFormData({
+        title: '',
+        content: '',
+        excerpt: '',
+        category: '',
+        tags: [],
+        featuredImage: '',
+        status: 'draft'
+      });
+      setTagInput('');
+      console.log('Manual form reset executed');
+    }, 2000);
   };
 
   if (isLoading) {
