@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getMyBlogs } from '../store/blogSlice';
-import { 
-  DocumentTextIcon, 
+import {
+  DocumentTextIcon,
   EyeIcon,
   ChartBarIcon,
   PlusIcon,
@@ -125,15 +125,22 @@ const Dashboard = () => {
 
       <div>
         <h2 className="text-xl font-bold text-secondary-900 mb-4">Your Blog Posts</h2>
-        
+
         {myBlogs.length === 0 ? (
           <div className="text-center py-12">
             <DocumentTextIcon className="h-16 w-16 text-secondary-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-secondary-900 mb-2">No blog posts yet</h3>
             <p className="text-secondary-600 mb-4">Start creating your first blog post!</p>
-            <Link to="/create-blog" className="btn-primary">
+            {/* <Link to="/create-blog" className="btn-primary">
               <PlusIcon className="h-5 w-5 mr-2" />
               Create Your First Blog
+            </Link> */}
+            <Link
+              to="/create-blog"
+              className="btn-primary inline-flex items-center justify-center"
+            >
+              <PlusIcon className="h-5 w-5 mr-2" />
+              <span>Create Your First Blog</span>
             </Link>
           </div>
         ) : (
@@ -166,7 +173,7 @@ const Dashboard = () => {
                   <tr key={blog._id} className="hover:bg-secondary-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
-                        <Link 
+                        <Link
                           to={`/blog/${blog._id}`}
                           className="text-sm font-medium text-secondary-900 hover:text-primary-600"
                         >
@@ -178,11 +185,10 @@ const Dashboard = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        blog.status === 'published' 
-                          ? 'bg-green-100 text-green-800' 
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${blog.status === 'published'
+                          ? 'bg-green-100 text-green-800'
                           : 'bg-yellow-100 text-yellow-800'
-                      }`}>
+                        }`}>
                         {blog.status}
                       </span>
                     </td>
